@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Murach's Java Servlets and JSP</title>
+    <link rel="stylesheet" href="styles/main.css" type="text/css" />
+  </head>
+  <body>
+    <h1>Murach's Java Servlets and JSP - Chapter 13</h1>
+    <h2>Applications</h2>
+    <ul>
+      <li><a href="emailList.jsp">Email List Application (JPA)</a></li>
+      <li><a href="#sqlGateway">SQL Gateway</a></li>
+    </ul>
+    
+    <div id="sqlGateway">
+      <h2>The SQL Gateway</h2>
+      <p>Enter an SQL statement and click the Execute button.</p>
+
+      <p><b>SQL statement:</b></p>
+    <form action="sqlGateway" method="post">
+      <textarea name="sqlStatement" cols="60" rows="8">SHOW TABLES;</textarea
+      ><br />
+      <input type="submit" value="Execute" />
+    </form>
+
+    <p><b>SQL result:</b></p>
+    <div id="sqlResult">
+      <!-- Results will be displayed here after form submission -->
+    </div>
+  </body>
+</html>
