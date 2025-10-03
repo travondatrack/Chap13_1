@@ -1,32 +1,23 @@
 # Render.com deployment configuration
+# Simplified Email List App - No Database Required
 services:
   - type: web
-    name: emaillist-app
+    name: chap13-1
     env: docker
     dockerfilePath: ./Dockerfile
-    plan: free # hoặc 'starter' nếu cần nhiều resources hơn
+    plan: free
 
     # Build settings
-    buildCommand: "" # Docker build sẽ handle việc này
-    startCommand: "" # Docker CMD sẽ handle việc này
+    buildCommand: "" # Docker multi-stage build handles this
+    startCommand: "" # Docker CMD starts Tomcat
 
     # Health check
     healthCheckPath: /
 
-    # Environment variables
+    # Environment variables (No database needed!)
     envVars:
-      - key: DB_HOST
-        value: 34.9.114.182
-      - key: DB_PORT
-        value: 3306
-      - key: DB_NAME
-        value: murach
-      - key: DB_USER
-        value: root
-      - key: DB_PASSWORD
-        sync: false # Sẽ set manually trong dashboard để bảo mật
       - key: JAVA_OPTS
-        value: "-Xmx512m -Xms256m -Djava.awt.headless=true"
+        value: "-Xmx512m -Xms256m -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true"
       - key: CATALINA_OPTS
         value: "-Djava.security.egd=file:/dev/./urandom"
       - key: APP_ENV
