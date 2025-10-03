@@ -1,0 +1,50 @@
+# Render.com deployment configuration
+services:
+  - type: web
+    name: emaillist-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free # hoặc 'starter' nếu cần nhiều resources hơn
+
+    # Build settings
+    buildCommand: "" # Docker build sẽ handle việc này
+    startCommand: "" # Docker CMD sẽ handle việc này
+
+    # Health check
+    healthCheckPath: /
+
+    # Environment variables
+    envVars:
+      - key: DB_HOST
+        value: 34.9.114.182
+      - key: DB_PORT
+        value: 3306
+      - key: DB_NAME
+        value: murach
+      - key: DB_USER
+        value: root
+      - key: DB_PASSWORD
+        sync: false # Sẽ set manually trong dashboard để bảo mật
+      - key: JAVA_OPTS
+        value: "-Xmx512m -Xms256m -Djava.awt.headless=true"
+      - key: CATALINA_OPTS
+        value: "-Djava.security.egd=file:/dev/./urandom"
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+
+    # Auto-deploy settings
+    autoDeploy: true # Tự động deploy khi push code
+
+    # Regions (chọn gần nhất với users)
+    region: singapore # hoặc oregon, frankfurt
+
+    # Scaling (free plan chỉ có 1 instance)
+    numInstances: 1
+
+    # Disk size
+    disk:
+      name: emaillist-data
+      mountPath: /usr/local/tomcat/logs
+      sizeGB: 1
